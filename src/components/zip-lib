@@ -1,0 +1,3 @@
+import { Zip } from "zip-lib"; 'zip-lib';
+
+export default ZipFile;
