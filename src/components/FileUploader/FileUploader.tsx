@@ -1,18 +1,7 @@
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import JSZip from "jszip";
-
-const ALLOWED_FILE_TYPES = ["application/pdf", "application/zip"];
-const FileSchema = z.object({
-  file: z.instanceof(FileList)
-  .refine((files) => files.length > 0, {
-    message: "Please select a file",
-  })
-  .refine((file) => {
-    return ALLOWED_FILE_TYPES.includes(file[0].type);
-  }, 'File must be a ZIP or PDF')
-})
+import { FileSchema } from "./validation";
 
 export function FileUploader() {
   const { register, handleSubmit, formState: {errors} } = useForm({
