@@ -15,4 +15,8 @@ describe("isAllowedFileType", () => {
   it("rejects a type outside the allow list", () => {
     expect(isAllowedFileType(makeFile("image/png"))).toBe(false);
   });
+
+  it("rejects an empty type", () => {
+    expect(isAllowedFileType(makeFile(""))).toBe(false);
+  });
 });
