@@ -31,7 +31,7 @@ describe("findNonPdfEntry", () => {
   });
 
   it("returns null for an empty list", () => {
-    expect(findNonPdfEntry([])).toBe("THIS_WILL_FAIL_ON_PURPOSE");
+    expect(findNonPdfEntry([])).toBeNull();
   });
 
   it("is case-insensitive about the .pdf extension", () => {
