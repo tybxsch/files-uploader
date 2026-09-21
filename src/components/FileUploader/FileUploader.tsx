@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import JSZip from "jszip";
-import { FileSchema } from "./validation";
+import { FileSchema, findNonPdfEntry } from "./validation";
 
 export function FileUploader() {
   const { register, handleSubmit, formState: {errors} } = useForm({
@@ -10,12 +10,11 @@ export function FileUploader() {
   const onSubmit = (data: any) =>{
     const zip = new JSZip();
     zip.loadAsync(data.file[0]).then((zip) => {
-      zip.forEach((relativePath) => {
-        if (!relativePath.includes(".pdf")) {
-          window.alert("Please select a PDF file:" + relativePath);
-          return
-        }
-      });
+      const relativePaths = Object.keys(zip.files);
+      const nonPdfEntry = findNonPdfEntry(relativePaths);
+      if (nonPdfEntry) {
+        window.alert("Please select a PDF file:" + nonPdfEntry);
+      }
     })
   };
 
