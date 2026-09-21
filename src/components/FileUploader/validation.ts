@@ -16,3 +16,7 @@ export const FileSchema = z.object({
       message: "File must be a ZIP or PDF",
     }),
 });
+
+export function findNonPdfEntry(relativePaths: string[]): string | null {
+  return relativePaths.find((path) => !path.toLowerCase().endsWith(".pdf")) ?? null;
+}
